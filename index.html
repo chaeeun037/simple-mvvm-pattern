@@ -1,0 +1,30 @@
+<script type="text/javascript" src="../libs/jquery-1.6.3.min.js"></script>
+<script type="text/javascript" src="../libs/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../libs/knockout-1.2.1.min.js"></script>
+<script src="knockout.js" type="text/javascript"></script>
+
+<h2>좌석 예약 프로그램</h2>
+<h4>현재 <span data-bind="text: seats().length"></span>개의 좌석이 예약되었습니다.</h4>
+
+<table>
+    <thead><tr>
+        <th>승객 이름</th><th>식사 메뉴</th><th>추가 요금</th><th></th>
+    </tr></thead>
+    <tbody data-bind="template: {name:'reservationTemplate', foreach: seats}"></tbody>
+    <tbody></tbody>
+</table>
+
+<button data-bind="click: addSeat, enable: seats().length < 10">좌석 추가하기</button>
+
+<script type="text/x-jquery-tmpl" id="reservationTemplate">
+        <tr>
+            <td><input data-bind="value: name" /></td>
+            <td><select data-bind="options: availableMeals, value: meal, optionsText: 'mealName'"></select></td>
+            <td data-bind="text: formattedPrice"></td>
+            <td><a href="#" data-bind="click: remove">삭제</a></td>
+        </tr>
+</script>
+
+<h3 data-bind="visible: totalSurcharge() > 0">
+  총 추가 요금: <span data-bind="text: totalSurcharge()">원</span>
+</h3>
